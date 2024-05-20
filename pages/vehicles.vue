@@ -5,7 +5,15 @@ definePageMeta({
 
 const search = ref('')
 
-const vehicles = [
+interface Vehicles {
+  brand: string
+  model: string
+  name: string
+  plate: string
+  owner: string
+}
+
+const vehicles: Vehicles[] = [
   {
     brand: 'Honda',
     model: 'City',

@@ -36,7 +36,7 @@ interface Owners {
   role: string
 }
 
-const people = [{
+const owners: Owners[] = [{
   id: 1,
   name: 'Lindsay Walton',
   title: 'Front-end Developer',
@@ -103,7 +103,7 @@ const items = (row: Owners) => [
       <UInput v-model="search" placeholder="Buscar proprietário" size="sm" icon="i-heroicons-magnifying-glass" />
     </PageTitle>
 
-    <UTable :columns="columns" :rows="people">
+    <UTable :columns="columns" :rows="owners">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
