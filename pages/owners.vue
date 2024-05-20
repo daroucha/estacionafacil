@@ -1,3 +1,3 @@
 <template>
-  <h1>Proprietários</h1>
+  <PageTitle title="Proprietários" />
 </template>

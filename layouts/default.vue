@@ -10,8 +10,11 @@ useHead({
 </script>
 
 <template>
-  <div>
+  <AppLayout>
     <AppSidebar />
-    <slot />
-  </div>
+
+    <AppPage>
+      <slot />
+    </AppPage>
+  </AppLayout>
 </template>
