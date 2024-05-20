@@ -18,9 +18,9 @@ const computedPicture = computed(() => props.picture ? props.picture : '/img/bla
     </div>
 
     <template #footer>
-      <h5 class="text-md font-semibold text-neutral-800 dark:text-neutral-100">{{ title }}</h5>
+      <h5 class="text-md font-semibold text-gray-800 dark:text-gray-100">{{ title }}</h5>
 
-      <span v-if="text" class="text-sm font-normal text-neutral-600 dark:text-neutral-300">{{ text }}</span>
+      <span v-if="text" class="text-sm font-normal text-gray-600 dark:text-gray-300">{{ text }}</span>
 
       <div class="flex items-center gap-2 pt-4" v-if="owner">
         <UAvatar :alt="owner" size="xs" />

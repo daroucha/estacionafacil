@@ -1,5 +1,5 @@
 <template>
-  <div id="AppPage" class="page">
+  <div id="AppPage" class="page bg-white dark:bg-gray-950">
     <slot />
   </div>
 </template>

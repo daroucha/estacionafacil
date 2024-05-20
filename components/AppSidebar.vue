@@ -21,15 +21,15 @@ const computedYear = computed(() => {
 </script>
 
 <template>
-  <div id="AppSidebar" class="sidebar bg-neutral-50 dark:bg-neutral-800">
-    <div class="header">
-      <img src="/img/logo.svg" alt="estacionafacil" />
+  <div id="AppSidebar" class="sidebar bg-gray-50 dark:bg-gray-900">
+    <div class="header text-gray-700 dark:text-white">
+      <Logo />
     </div>
 
     <UVerticalNavigation :links="links" />
 
-    <div class="footer border-t border-neutral-200 dark:border-neutral-600">
-      <span class="text-xs leading-3 text-neutral-400">{{ computedYear }}, estacionafacil. Desenvolvido por Daniel
+    <div class="footer border-t border-gray-200 dark:border-gray-600">
+      <span class="text-xs leading-3 text-gray-400">{{ computedYear }}, estacionafacil. Desenvolvido por Daniel
         Aroucha.
         <ULink to="https://github.com/daroucha/estacionafacil" target="_blank" active-class="text-primary"
           inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">GitHub ▶︎
@@ -58,7 +58,7 @@ const computedYear = computed(() => {
   width: 100%;
 }
 
-.sidebar>.header>img {
+.sidebar>.header>svg {
   -webkit-user-drag: none;
   display: block;
   height: 14px;
