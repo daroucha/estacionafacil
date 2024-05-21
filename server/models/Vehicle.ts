@@ -22,6 +22,11 @@ export const VehicleSchema = defineMongooseModel<Vehicles>({
       type: Types.ObjectId,
       ref: 'Owner',
       required: true
+    },
+    user: {
+      type: Types.ObjectId,
+      ref: 'User',
+      required: true
     }
   }
 })

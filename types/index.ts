@@ -12,6 +12,7 @@ export interface Vehicles {
   name: string
   plate: string
   owner: ObjectId
+  user: ObjectId
 }
 
 export interface Owners {
@@ -20,6 +21,7 @@ export interface Owners {
   cpf: string
   email: string
   phone: string
+  user: ObjectId
 }
 
 export interface Users {
