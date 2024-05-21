@@ -3,6 +3,8 @@ definePageMeta({
   title: 'Proprietários'
 })
 
+const modal = ref(false)
+
 const search = ref('')
 
 const columns = [{
@@ -76,21 +78,9 @@ const owners: Owners[] = [{
 
 const items = (row: Owners) => [
   [{
-    label: 'Edit',
+    label: 'Editar',
     icon: 'i-heroicons-pencil-square-20-solid',
     click: () => console.log('Edit', row.id)
-  }, {
-    label: 'Duplicate',
-    icon: 'i-heroicons-document-duplicate-20-solid'
-  }], [{
-    label: 'Archive',
-    icon: 'i-heroicons-archive-box-20-solid'
-  }, {
-    label: 'Move',
-    icon: 'i-heroicons-arrow-right-circle-20-solid'
-  }], [{
-    label: 'Delete',
-    icon: 'i-heroicons-trash-20-solid'
   }]
 ]
 </script>
@@ -98,10 +88,14 @@ const items = (row: Owners) => [
 <template>
   <PageWrapper>
     <PageTitle title="Proprietários">
-      <UButton size="sm" variant="ghost" icon="i-heroicons-plus">Cadastrar proprietário</UButton>
+      <UButton size="sm" variant="ghost" icon="i-heroicons-plus" @click="modal = true">Cadastrar proprietário</UButton>
 
       <UInput v-model="search" placeholder="Buscar proprietário" size="sm" icon="i-heroicons-magnifying-glass" />
     </PageTitle>
+
+    <UModal v-model="modal">
+      <AddOwnerForm :on-cancel="() => modal = false" />
+    </UModal>
 
     <UTable :columns="columns" :rows="owners">
       <template #actions-data="{ row }">
