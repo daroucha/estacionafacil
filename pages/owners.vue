@@ -2,7 +2,8 @@
 import type { Owners } from '~/types';
 
 definePageMeta({
-  title: 'Proprietários'
+  title: 'Proprietários',
+  middleware: 'auth'
 })
 
 const modal = ref(false)

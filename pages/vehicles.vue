@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
-  title: 'Veículos'
+  title: 'Veículos',
+  middleware: 'auth'
 })
 
 const modal = ref(false)
