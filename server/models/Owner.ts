@@ -1,5 +1,6 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
 import type { Owners } from '~/types'
+import { Types } from 'mongoose'
 
 export const OwnerSchema = defineMongooseModel<Owners>({
   name: 'Owner',
@@ -20,6 +21,11 @@ export const OwnerSchema = defineMongooseModel<Owners>({
     },
     phone: {
       type: 'string',
+      required: true
+    },
+    user: {
+      type: Types.ObjectId,
+      ref: 'User',
       required: true
     }
   }
