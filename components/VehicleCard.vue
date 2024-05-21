@@ -12,12 +12,16 @@ const computedPicture = computed(() => props.picture ? props.picture : '/img/bla
 </script>
 
 <template>
-  <UCard class="w-full">
+  <UCard class="w-full relative">
     <div class="min-h-24 flex items-center justify-center">
       <img :src="computedPicture" :alt="title" class="max-w-full h-16 w-auto" />
     </div>
 
     <template #footer>
+      <div class="absolute right-0 mr-4">
+        <slot />
+      </div>
+
       <h5 class="text-md font-semibold text-gray-800 dark:text-gray-100">{{ title }}</h5>
 
       <span v-if="text" class="text-sm font-normal text-gray-600 dark:text-gray-300">{{ text }}</span>

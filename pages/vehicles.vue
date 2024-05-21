@@ -3,6 +3,8 @@ definePageMeta({
   title: 'Veículos'
 })
 
+const modal = ref(false)
+
 const search = ref('')
 
 interface Vehicles {
@@ -50,19 +52,38 @@ const vehicles: Vehicles[] = [
     owner: 'John Doe'
   }
 ]
+
+const items = (row: Vehicles) => [
+  [{
+    label: 'Editar',
+    icon: 'i-heroicons-pencil-square-20-solid',
+    click: () => console.log('Edit', row.plate)
+  }], [{
+    label: 'Excluir',
+    icon: 'i-heroicons-trash-20-solid'
+  }]
+]
 </script>
 
 <template>
   <PageWrapper>
     <PageTitle title="Veículos">
-      <UButton size="sm" variant="ghost" icon="i-heroicons-plus">Adicionar veículo</UButton>
+      <UButton size="sm" variant="ghost" icon="i-heroicons-plus" @click="modal = true">Adicionar veículo</UButton>
 
       <UInput v-model="search" placeholder="Buscar veículo" size="sm" icon="i-heroicons-magnifying-glass" />
     </PageTitle>
 
+    <UModal v-model="modal">
+      <AddVehicleForm :on-cancel="() => modal = false" />
+    </UModal>
+
     <CardGrid>
       <VehicleCard v-for="vehicle in vehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
-        :owner="vehicle.owner" />
+        :owner="vehicle.owner">
+        <UDropdown :items="items(vehicle)">
+          <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+        </UDropdown>
+      </VehicleCard>
     </CardGrid>
   </PageWrapper>
 </template>
