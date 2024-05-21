@@ -9,8 +9,11 @@ export async function _useSession(event: H3Event, username?: string) {
     password: SECRET,
     name: 'authorization',
   })
-  if (username)
+
+  if (username) {
     await session.update({ username })
+  }
+
   return {
     ...session,
     data: session.data as AuthPayload
