@@ -1,7 +1,6 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
-import { Types } from 'mongoose'
 import type { Users } from '~/types'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export const UserSchema = defineMongooseModel<Users>({
   name: 'User',

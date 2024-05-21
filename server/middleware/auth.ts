@@ -1,9 +1,9 @@
 export default defineEventHandler((event) => {
-  const { mongo } = useRuntimeConfig(event).auth
+  const config = useRuntimeConfig(event).auth
 
   const { url } = event.node.req
 
-  mongo.exclude.forEach((item: any) => {
+  config.exclude.forEach((item: any) => {
     if (`/api/auth/${item}` === url) {
       throw createError({
         statusCode: 404,
