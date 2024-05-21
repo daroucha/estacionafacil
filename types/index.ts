@@ -1,4 +1,9 @@
 import type { ObjectId } from 'mongoose'
+import type { JWTPayload } from 'jose'
+
+export interface AuthPayload extends JWTPayload {
+  username?: string
+}
 
 export interface Vehicles {
   _id?: ObjectId
@@ -15,4 +20,11 @@ export interface Owners {
   cpf: string
   email: string
   phone: string
+}
+
+export interface Users {
+  _id: ObjectId
+  username: string
+  password: string
+  createdAt: Date
 }

@@ -5,12 +5,7 @@ import { OwnerSchema } from "../models/Owner"
 // @access  Public
 export const getOwners = defineEventHandler(async (event) => {
   try {
-    const data = await OwnerSchema.find()
-
-    return {
-      success: true,
-      data
-    }
+    return await OwnerSchema.find()
   } catch (error) {
     return error
   }
