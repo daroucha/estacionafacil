@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+const { clear } = useAuth()
 
 const links = [
-  {
-    label: 'Veículos',
-    icon: 'i-heroicons-truck',
-    to: '/vehicles'
-  },
   {
     label: 'Proprietários',
     icon: 'i-heroicons-user-circle',
     to: '/owners'
+  },
+  {
+    label: 'Veículos',
+    icon: 'i-heroicons-truck',
+    to: '/vehicles'
+  }
+]
+
+const logout = async () => {
+  await clear()
+  return navigateTo('/')
+}
+
+const logoutLink = [
+  {
+    label: 'Sair',
+    icon: 'i-heroicons-power',
+    click: logout
   }
 ]
 
@@ -28,8 +41,10 @@ const computedYear = computed(() => {
 
     <UVerticalNavigation :links="links" />
 
-    <div class="footer border-t border-gray-200 dark:border-gray-600">
-      <span class="text-xs leading-3 text-gray-400">{{ computedYear }}, estacionafacil. Desenvolvido por Daniel
+    <div class="footer border-t border-gray-200 dark:border-gray-800">
+      <UVerticalNavigation :links="logoutLink" />
+
+      <span class="text-xs leading-4 text-gray-400">{{ computedYear }}, estacionafacil. Desenvolvido por Daniel
         Aroucha.
         <ULink to="https://github.com/daroucha/estacionafacil" target="_blank" active-class="text-primary"
           inactive-class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">GitHub ▶︎
@@ -67,8 +82,10 @@ const computedYear = computed(() => {
 
 .sidebar>.footer {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   padding-top: 24px;
   width: 100%;
-  display: block;
 }
 </style>

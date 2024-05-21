@@ -1,10 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'unauth',
-  title: 'estacionafacil'
+  title: 'estacionafacil',
+  middleware: 'unauth'
 })
 </script>
 
 <template>
-  <img src="/img/logo.svg" alt="estacionafacil" />
+  <LoginForm />
 </template>

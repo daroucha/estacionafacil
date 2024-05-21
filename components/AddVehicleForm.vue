@@ -66,7 +66,8 @@ const selected = ref(owners[0])
       </UFormGroup>
     </div>
 
-    <div class="w-full flex flex-row justify-end items-center gap-4 pt-4 pb-2 border-t border-gray-200">
+    <div
+      class="w-full flex flex-row justify-end items-center gap-4 pt-4 pb-2 border-t border-gray-200 dark:border-gray-800">
       <UButton color="primary" variant="ghost" @click="onCancel">Cancelar</UButton>
 
       <UButton color="primary" variant="solid" icon="i-heroicons-plus">Adicionar veículo</UButton>
