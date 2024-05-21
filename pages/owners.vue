@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Owners } from '~/types';
+
 definePageMeta({
   title: 'Proprietários'
 })
@@ -8,81 +10,34 @@ const modal = ref(false)
 const search = ref('')
 
 const columns = [{
-  key: 'id',
-  label: 'ID'
-}, {
   key: 'name',
-  label: 'Name',
+  label: 'Nome',
   sortable: true
 }, {
-  key: 'title',
-  label: 'Title',
+  key: 'cpf',
+  label: 'CPF',
   sortable: true
 }, {
   key: 'email',
-  label: 'Email',
+  label: 'E-mail',
   sortable: true,
   direction: 'desc' as const
 }, {
-  key: 'role',
-  label: 'Role'
+  key: 'phone',
+  label: 'Celular'
 }, {
   key: 'actions'
-}]
-
-interface Owners {
-  id: number
-  name: string
-  title: string
-  email: string
-  role: string
-}
-
-const owners: Owners[] = [{
-  id: 1,
-  name: 'Lindsay Walton',
-  title: 'Front-end Developer',
-  email: 'lindsay.walton@example.com',
-  role: 'Member'
-}, {
-  id: 2,
-  name: 'Courtney Henry',
-  title: 'Designer',
-  email: 'courtney.henry@example.com',
-  role: 'Admin'
-}, {
-  id: 3,
-  name: 'Tom Cook',
-  title: 'Director of Product',
-  email: 'tom.cook@example.com',
-  role: 'Member'
-}, {
-  id: 4,
-  name: 'Whitney Francis',
-  title: 'Copywriter',
-  email: 'whitney.francis@example.com',
-  role: 'Admin'
-}, {
-  id: 5,
-  name: 'Leonard Krasner',
-  title: 'Senior Designer',
-  email: 'leonard.krasner@example.com',
-  role: 'Owner'
-}, {
-  id: 6,
-  name: 'Floyd Miles',
-  title: 'Principal Designer',
-  email: 'floyd.miles@example.com',
-  role: 'Member'
 }]
 
 const items = (row: Owners) => [
   [{
     label: 'Editar',
     icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row.id)
+    click: () => console.log('Edit', row._id)
   }]
 ]
+
+const { data: owners, pending } = await useFetch('/api/owners')
 </script>
 
 <template>
@@ -97,7 +52,7 @@ const items = (row: Owners) => [
       <AddOwnerForm :on-cancel="() => modal = false" />
     </UModal>
 
-    <UTable :columns="columns" :rows="owners">
+    <UTable :loading="pending" :columns="columns" :rows="owners">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
