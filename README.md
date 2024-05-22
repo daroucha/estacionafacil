@@ -6,6 +6,20 @@ Crie um arquivo `.env` na raiz do diretório (seguindo a mesma estrutura do arqu
 
 Veja a [documentação do MongoDB](https://www.mongodb.com/docs/manual/reference/connection-string) para saber mais.
 
+## Após setup
+
+Você vai precisar criar um usuário para conseguir usar a plataforma. Você pode criar um usuário através da rota `POST /api/auth/register`. Body obrigatório:
+
+```json
+{
+  // seu nome de usuario
+  "username": "",
+
+  // sua senha
+  "password": ""
+}
+```
+
 ## Stack
 
 - Nuxt: Framework de Front-end baseado em VueJS
