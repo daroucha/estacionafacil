@@ -9,10 +9,10 @@ export interface Vehicles {
   _id?: ObjectId
   brand: string
   model: string
-  name: string
+  name?: string
   plate: string
-  owner: ObjectId
-  user: ObjectId
+  owner?: Owners
+  user?: ObjectId
 }
 
 export interface Owners {

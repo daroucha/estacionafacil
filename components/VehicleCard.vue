@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import type { ObjectId } from 'mongoose'
+
 interface PropsVehicleCard {
   owner?: string
+  ownerId?: ObjectId
   picture?: string
   text?: string
   title: string
@@ -29,7 +32,7 @@ const computedPicture = computed(() => props.picture ? props.picture : '/img/bla
       <div class="flex items-center gap-2 pt-4" v-if="owner">
         <UAvatar :alt="owner" size="xs" />
 
-        <ULink to="/owners" class="text-sm">{{ owner }}</ULink>
+        <ULink :to="`/owners/${ownerId}`" class="text-sm">{{ owner }}</ULink>
       </div>
     </template>
   </UCard>
