@@ -30,15 +30,49 @@ const columns = [{
   key: 'actions'
 }]
 
+const resetOwner = {
+  name: '',
+  cpf: '',
+  email: '',
+  phone: ''
+}
+
+const edit = ref<Owners>(resetOwner)
+
 const items = (row: Owners) => [
   [{
     label: 'Editar',
     icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row._id)
+    click: () => {
+      edit.value = row
+      modal.value = true
+    }
   }]
 ]
 
-const { data: owners, pending } = await useFetch('/api/owners')
+const { data: responseOwners, pending } = await useFetch<Owners[]>('/api/owners')
+
+const owners = ref(responseOwners)
+
+const onCancel = () => {
+  modal.value = false
+  edit.value = resetOwner
+}
+
+const onCreated = (data: Owners) => {
+  owners.value!.push(data)
+  modal.value = false
+}
+
+const onUpdated = (data: Owners) => {
+  const index = owners.value!.findIndex(owner => owner._id === data._id)
+  owners.value![index] = data
+  modal.value = false
+}
+
+const computedOwners = computed(() => {
+  return owners.value!.filter(owner => owner.name.toLowerCase().includes(search.value.toLowerCase()))
+})
 </script>
 
 <template>
@@ -50,10 +84,10 @@ const { data: owners, pending } = await useFetch('/api/owners')
     </PageTitle>
 
     <UModal v-model="modal">
-      <AddOwnerForm :on-cancel="() => modal = false" />
+      <AddOwnerForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" :value="edit" />
     </UModal>
 
-    <UTable :loading="pending" :columns="columns" :rows="owners">
+    <UTable :loading="pending" :columns="columns" :rows="computedOwners">
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />

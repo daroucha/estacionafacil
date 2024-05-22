@@ -25,7 +25,7 @@ const login = async () => {
       me()
       await navigateTo('/owners')
     }
-  } catch (error) {
+  } catch (error: any) {
     isOpen.value = true
     alert.value = error.message
   } finally {

@@ -16,12 +16,12 @@ export interface Vehicles {
 }
 
 export interface Owners {
-  _id: ObjectId
+  _id?: ObjectId
   name: string
   cpf: string
   email: string
   phone: string
-  user: ObjectId
+  user?: ObjectId
 }
 
 export interface Users {
