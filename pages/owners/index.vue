@@ -98,7 +98,8 @@ const computedOwners = computed(() => {
       <AddOwnerForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" :value="edit" />
     </UModal>
 
-    <UTable :loading="pending" :columns="columns" :rows="computedOwners">
+    <UTable :loading="pending" :columns="columns" :rows="computedOwners"
+      :empty-state="{ icon: 'i-heroicons-circle-stack-20-solid', label: 'Nenhum proprietário' }">
       <template #vehicles-data="{ row }">
         <ULink :to="`/owners/${row._id}`"
           inactive-class="text-primary dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Veículos
