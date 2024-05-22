@@ -88,6 +88,8 @@ const onDelete = async (data: Vehicles) => {
       <AddVehicleForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" :value="edit" />
     </UModal>
 
+    <EmptyState v-if="computedVehicles.length < 1" title="Nenhum veículo" />
+
     <CardGrid>
       <VehicleCard v-for="vehicle in computedVehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
         :owner="vehicle.owner!.name" :owner-id="vehicle.owner!._id">

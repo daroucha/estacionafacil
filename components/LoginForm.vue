@@ -3,8 +3,10 @@ const { me } = useAuth()
 
 const loading = ref(false)
 
-const isOpen = ref(false)
-const alert = ref('')
+const alert = ref({
+  status: false,
+  message: ''
+})
 
 const username = ref('')
 const password = ref('')
@@ -26,8 +28,8 @@ const login = async () => {
       await navigateTo('/owners')
     }
   } catch (error: any) {
-    isOpen.value = true
-    alert.value = error.statusMessage
+    alert.value.status = true
+    alert.value.message = error.statusMessage
   } finally {
     loading.value = false
   }
@@ -45,7 +47,8 @@ const login = async () => {
         <div class="flex flex-col gap-8">
           <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">Faça login em sua conta</h3>
 
-          <UAlert v-if="isOpen" :title="alert" />
+          <UAlert v-if="alert.status" :title="alert.message" variant="solid" color="red"
+            icon="i-heroicons-exclamation-triangle" />
 
           <div class="flex flex-col gap-4 w-full">
             <UFormGroup label="Usuário">

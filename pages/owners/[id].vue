@@ -3,7 +3,7 @@ import type { Owners, Vehicles } from '~/types'
 
 const route = useRoute()
 
-const { data: responseOwner, pending } = await useFetch<Owners>(`/api/owners/${route.params.id}`, {
+const { data: responseOwner, pending, error } = await useFetch<Owners>(`/api/owners/${route.params.id}`, {
   method: 'GET'
 })
 
@@ -12,10 +12,11 @@ const owner = ref(responseOwner)
 const links = computed(() => [
   {
     label: 'Proprietários',
-    to: '/owners'
+    to: '/owners',
+    icon: 'i-heroicons-arrow-left'
   },
   {
-    label: owner.value?.name,
+    label: owner.value!.name,
   }
 ])
 
@@ -69,7 +70,7 @@ const onUpdated = (data: Vehicles) => {
 
 const computedVehicles = computed(() => {
   const rawVehicles = vehicles.value!.map(vehicle => {
-    return { ...vehicle, name: `${vehicle.brand} ${vehicle.model}` }
+    return { ...vehicle, name: `${vehicle.brand} ${vehicle.model}`, owner }
   })
   return rawVehicles.filter(vehicle => vehicle.name.toLowerCase().includes(search.value.toLowerCase()))
 })
@@ -90,17 +91,21 @@ const onDelete = async (data: Vehicles) => {
 
 <template>
   <PageWrapper>
-    <UBreadcrumb :links="links" />
+    <PageHeader>
+      <UBreadcrumb :links="links" />
 
-    <PageTitle :title="`Veículos de ${owner?.name}`">
-      <UButton size="sm" variant="ghost" icon="i-heroicons-plus" @click="modal = true">Adicionar veículo</UButton>
+      <PageTitle :title="`Veículos de ${owner?.name}`">
+        <UButton size="sm" variant="ghost" icon="i-heroicons-plus" @click="modal = true">Adicionar veículo</UButton>
 
-      <UInput v-model="search" placeholder="Buscar veículo" size="sm" icon="i-heroicons-magnifying-glass" />
-    </PageTitle>
+        <UInput v-model="search" placeholder="Buscar veículo" size="sm" icon="i-heroicons-magnifying-glass" />
+      </PageTitle>
+    </PageHeader>
 
     <UModal v-model="modal">
       <AddVehicleForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" :value="edit" />
     </UModal>
+
+    <EmptyState v-if="computedVehicles.length < 1" title="Nenhum veículo" />
 
     <CardGrid>
       <VehicleCard v-for="vehicle in computedVehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
