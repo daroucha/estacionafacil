@@ -23,7 +23,7 @@ const search = async (name: string) => {
   return owners
 }
 
-const selected = ref()
+const selected = ref(props.value?.owner)
 
 const vehicle = ref({
   brand: props.value?.brand,
@@ -47,7 +47,7 @@ const createVehicle = async () => {
     model: vehicle.value.model,
     name: vehicle.value.name,
     plate: vehicle.value.plate,
-    owner: vehicle.value.owner._id
+    owner: vehicle.value.owner!._id
   }
 
   try {

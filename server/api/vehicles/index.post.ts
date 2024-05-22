@@ -9,9 +9,14 @@ export default defineEventHandler(async (event) => {
   const user = await UserSchema.findOne({ username })
 
   if (user) {
-    return await new VehicleSchema({
+    const vehicle = await new VehicleSchema({
       ...body,
       user: user._id
-    }).save()
+    })
+
+    return vehicle.save().then(model => model.populate({
+      path: 'owner',
+      select: 'name'
+    })).then(model => model)
   }
 })
