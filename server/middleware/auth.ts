@@ -7,7 +7,7 @@ export default defineEventHandler((event) => {
     if (`/api/auth/${item}` === url) {
       throw createError({
         statusCode: 404,
-        statusMessage: `Page not found: ${url}`
+        message: `Rota não encontrada: ${url}`
       })
     }
   })

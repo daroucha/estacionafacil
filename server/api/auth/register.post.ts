@@ -11,6 +11,8 @@ export default defineEventHandler(async (event) => {
 
   const token = await setAuth(event, user.username)
 
+  setResponseStatus(event, 200)
+
   return {
     success: true,
     token: token.data.username,

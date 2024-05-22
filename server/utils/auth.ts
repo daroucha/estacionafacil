@@ -20,8 +20,8 @@ export async function requireAuth(event: H3Event) {
 
   if (!token)
     throw createError({
-      statusCode: 401,
-      statusText: 'Unauthorized! token invalid.'
+      statusCode: 403,
+      message: 'Você não está autorizado a acessar essa rota'
     })
 
   const payload = await verifyJWT(token)

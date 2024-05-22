@@ -3,6 +3,9 @@
 // @access  Private
 export default defineEventHandler(async (event) => {
   await clearAuth(event)
+
+  setResponseStatus(event, 200)
+
   return {
     success: true
   }
