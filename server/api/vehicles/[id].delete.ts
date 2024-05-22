@@ -3,18 +3,20 @@
 // @access  Private
 export default defineEventHandler(async (event) => {
   const { username } = await requireAuth(event)
-
   const user = await UserSchema.findOne({ username })
 
-  try {
-    if (user) {
-      await VehicleSchema.findByIdAndDelete(event.context.params?.id)
+  if (!user) {
+    throw createError({
+      message: 'Você não tem autorização para acessar essa rota',
+      statusCode: 403
+    })
+  }
 
-      return {
-        success: true
-      }
-    }
-  } catch (error) {
-    return error
+  await VehicleSchema.findByIdAndDelete(event.context.params?.id)
+
+  setResponseStatus(event, 200)
+
+  return {
+    success: true
   }
 })

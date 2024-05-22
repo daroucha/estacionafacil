@@ -4,6 +4,8 @@
 export default defineEventHandler(async (event) => {
   const payload = await requireAuth(event)
 
+  setResponseStatus(event, 200)
+
   return {
     ...payload,
   }

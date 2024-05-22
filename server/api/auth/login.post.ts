@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   // Validate email and password
   if (!username || !password) {
     throw createError({
-      statusMessage: 'Please provide an username and password',
+      message: 'Digite seu usuário e senha',
       statusCode: 400
     })
   }
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
   if (!user) {
     throw createError({
-      statusMessage: 'Invalid credentials',
+      message: 'Dados inválidos',
       statusCode: 401
     })
   }
@@ -30,12 +30,14 @@ export default defineEventHandler(async (event) => {
 
   if (!isMatch) {
     throw createError({
-      statusMessage: 'Invalid credentials',
+      message: 'Dados inválidos',
       statusCode: 401
     })
   }
 
   const token = await setAuth(event, username)
+
+  setResponseStatus(event, 200)
 
   return {
     success: true,
