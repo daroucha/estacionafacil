@@ -2,8 +2,11 @@
 import type { Vehicles } from '~/types'
 
 definePageMeta({
-  title: 'Veículos',
   middleware: 'auth'
+})
+
+useHead({
+  title: 'Veículos - estacionafacil'
 })
 
 const modal = ref(false)

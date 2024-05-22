@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import type { Owners, Vehicles } from '~/types'
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const route = useRoute()
 
 const { data: responseOwner, pending, error } = await useFetch<Owners>(`/api/owners/${route.params.id}`, {
   method: 'GET'
 })
 
-const owner = ref(responseOwner)
+const owner = ref<Owners>(responseOwner)
+
+useHead({
+  title: `Veículos de ${owner.value?.name} - estacionafacil`
+})
 
 const links = computed(() => [
   {
@@ -16,7 +24,7 @@ const links = computed(() => [
     icon: 'i-heroicons-arrow-left'
   },
   {
-    label: owner.value!.name,
+    label: owner.value?.name,
   }
 ])
 
@@ -109,7 +117,7 @@ const onDelete = async (data: Vehicles) => {
 
     <CardGrid>
       <VehicleCard v-for="vehicle in computedVehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
-        :owner="owner!.name" :owner-id="owner!._id">
+        :owner="owner?.name" :owner-id="owner?._id">
         <UDropdown :items="items(vehicle)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
