@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Vehicles } from '~/types'
+
 definePageMeta({
   title: 'Veículos',
   middleware: 'auth'
@@ -8,51 +10,13 @@ const modal = ref(false)
 
 const search = ref('')
 
-interface Vehicles {
-  brand: string
-  model: string
-  name: string
-  plate: string
-  owner: string
+const resetVehicle = {
+  brand: '',
+  model: '',
+  plate: ''
 }
 
-const vehicles: Vehicles[] = [
-  {
-    brand: 'Honda',
-    model: 'City',
-    name: 'Honda City',
-    plate: 'RTJ4H67',
-    owner: 'John Doe'
-  },
-  {
-    brand: 'Volkswagen',
-    model: 'Gol',
-    name: 'VW Gol',
-    plate: 'LCQ6749',
-    owner: 'John Doe'
-  },
-  {
-    brand: 'Ford',
-    model: 'Fiesta',
-    name: 'Ford Fiesta',
-    plate: 'KTL9587',
-    owner: 'John Doe'
-  },
-  {
-    brand: 'Nissan',
-    model: 'Sentra',
-    name: 'Nissan Sentra',
-    plate: 'TTL8462',
-    owner: 'John Doe'
-  },
-  {
-    brand: 'Hyundai',
-    model: 'HB20',
-    name: 'Hyundai HB20',
-    plate: 'RKL4O97',
-    owner: 'John Doe'
-  }
-]
+const edit = ref<Vehicles>(resetVehicle)
 
 const items = (row: Vehicles) => [
   [{
@@ -64,6 +28,33 @@ const items = (row: Vehicles) => [
     icon: 'i-heroicons-trash-20-solid'
   }]
 ]
+
+const { data: responseVehicles, pending } = await useFetch<Vehicles[]>('/api/vehicles')
+
+const vehicles = ref(responseVehicles)
+
+const onCancel = () => {
+  modal.value = false
+  edit.value = resetVehicle
+}
+
+const onCreated = (data: Vehicles) => {
+  vehicles.value!.push(data)
+  modal.value = false
+}
+
+const onUpdated = (data: Vehicles) => {
+  const index = vehicles.value!.findIndex(vehicle => vehicle._id === data._id)
+  vehicles.value![index] = data
+  modal.value = false
+}
+
+const computedVehicles = computed(() => {
+  const rawVehicles = vehicles.value!.map(vehicle => {
+    return { ...vehicle, name: `${vehicle.brand} ${vehicle.model}` }
+  })
+  return rawVehicles.filter(vehicle => vehicle.name.toLowerCase().includes(search.value.toLowerCase()))
+})
 </script>
 
 <template>
@@ -75,12 +66,12 @@ const items = (row: Vehicles) => [
     </PageTitle>
 
     <UModal v-model="modal">
-      <AddVehicleForm :on-cancel="() => modal = false" />
+      <AddVehicleForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" />
     </UModal>
 
     <CardGrid>
-      <VehicleCard v-for="vehicle in vehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
-        :owner="vehicle.owner">
+      <VehicleCard v-for="vehicle in computedVehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
+        :owner="vehicle.owner!.name" :owner-id="vehicle.owner?._id">
         <UDropdown :items="items(vehicle)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
