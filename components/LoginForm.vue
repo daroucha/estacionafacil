@@ -27,7 +27,7 @@ const login = async () => {
     }
   } catch (error: any) {
     isOpen.value = true
-    alert.value = error.message
+    alert.value = error.statusMessage
   } finally {
     loading.value = false
   }
