@@ -12,12 +12,10 @@ export const OwnerSchema = defineMongooseModel<Owners>({
     email: {
       type: 'string',
       required: true,
-      unique: true
     },
     cpf: {
       type: 'string',
       required: true,
-      unique: true
     },
     phone: {
       type: 'string',
