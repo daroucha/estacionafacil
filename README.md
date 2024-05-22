@@ -1,10 +1,28 @@
 # estacionafacil
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Antes de começar
+
+Crie um arquivo `.env` na raiz do diretório (seguindo a mesma estrutura do arquivo `.env.example`) e insira sua string de conexão do MongoDB.
+
+Veja a [documentação do MongoDB](https://www.mongodb.com/docs/manual/reference/connection-string) para saber mais.
+
+## Stack
+
+- Nuxt: Framework de Front-end baseado em VueJS
+- Nuxt UI: Biblioteca de componentes
+- Nitro: Servidor Back-end
+- MongoDB: Banco de dados
+- Mongoose: ORM
+- Typescript
+
+## Features
+
+- CRUD de Veículos e Proprietários
+- Autenticação
 
 ## Setup
 
-Make sure to install the dependencies:
+Instale as dependências do projeto:
 
 ```bash
 # npm
@@ -14,9 +32,11 @@ npm install
 yarn install
 ```
 
-## Development Server
+Veja a [documentação do Nuxt 3](https://nuxt.com/docs/getting-started/introduction) para saber mais.
 
-Start the development server on `http://localhost:3000`:
+### Desenvolvimento
+
+Após instalar as dependências, rode o projeto. O endereço padrão é `http://localhost:3000`:
 
 ```bash
 # npm
@@ -26,9 +46,9 @@ npm run dev
 yarn dev
 ```
 
-## Production
+### Produção
 
-Build the application for production:
+Para fazer a build do projeto para produção:
 
 ```bash
 # npm
@@ -38,7 +58,7 @@ npm run build
 yarn build
 ```
 
-Locally preview production build:
+Pre-visualização local da build:
 
 ```bash
 # npm
@@ -47,5 +67,3 @@ npm run preview
 # yarn
 yarn preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
