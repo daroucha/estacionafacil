@@ -1,8 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
   layout: 'unauth',
-  title: 'estacionafacil',
   middleware: 'unauth'
+})
+
+useHead({
+  title: 'estacionafacil'
 })
 </script>
 
