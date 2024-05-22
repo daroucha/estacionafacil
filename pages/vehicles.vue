@@ -28,7 +28,8 @@ const items = (row: Vehicles) => [
     }
   }], [{
     label: 'Excluir',
-    icon: 'i-heroicons-trash-20-solid'
+    icon: 'i-heroicons-trash-20-solid',
+    click: () => onDelete(row)
   }]
 ]
 
@@ -60,6 +61,19 @@ const computedVehicles = computed(() => {
   })
   return rawVehicles.filter(vehicle => vehicle.name.toLowerCase().includes(search.value.toLowerCase()))
 })
+
+const onDelete = async (data: Vehicles) => {
+  try {
+    await $fetch(`/api/vehicles/${data._id}`, {
+      method: 'DELETE'
+    })
+
+    const index = vehicles.value!.findIndex(vehicle => vehicle._id === data._id)
+    delete vehicles.value![index]
+  } catch (error) {
+    console.log(error)
+  }
+}
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 // @desc    Update selected vehicle
-// @route   GET /api/vehicles/:id
+// @route   PUT /api/vehicles/:id
 // @access  Private
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
