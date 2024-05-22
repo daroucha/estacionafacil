@@ -71,12 +71,14 @@ const onCancel = () => {
 const onCreated = (data: Owners) => {
   owners.value!.push(data)
   modal.value = false
+  edit.value = resetOwner
 }
 
 const onUpdated = (data: Owners) => {
   const index = owners.value!.findIndex(owner => owner._id === data._id)
   owners.value![index] = data
   modal.value = false
+  edit.value = resetOwner
 }
 
 const computedOwners = computed(() => {

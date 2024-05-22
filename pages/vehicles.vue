@@ -22,7 +22,10 @@ const items = (row: Vehicles) => [
   [{
     label: 'Editar',
     icon: 'i-heroicons-pencil-square-20-solid',
-    click: () => console.log('Edit', row.plate)
+    click: () => {
+      edit.value = row
+      modal.value = true
+    }
   }], [{
     label: 'Excluir',
     icon: 'i-heroicons-trash-20-solid'
@@ -41,12 +44,14 @@ const onCancel = () => {
 const onCreated = (data: Vehicles) => {
   vehicles.value!.push(data)
   modal.value = false
+  edit.value = resetVehicle
 }
 
 const onUpdated = (data: Vehicles) => {
   const index = vehicles.value!.findIndex(vehicle => vehicle._id === data._id)
   vehicles.value![index] = data
   modal.value = false
+  edit.value = resetVehicle
 }
 
 const computedVehicles = computed(() => {
@@ -66,12 +71,12 @@ const computedVehicles = computed(() => {
     </PageTitle>
 
     <UModal v-model="modal">
-      <AddVehicleForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" />
+      <AddVehicleForm @cancel="onCancel" @created="onCreated" @updated="onUpdated" :value="edit" />
     </UModal>
 
     <CardGrid>
       <VehicleCard v-for="vehicle in computedVehicles" :key="vehicle.plate" :title="vehicle.name" :text="vehicle.plate"
-        :owner="vehicle.owner!.name" :owner-id="vehicle.owner?._id">
+        :owner="vehicle.owner!.name" :owner-id="vehicle.owner!._id">
         <UDropdown :items="items(vehicle)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
         </UDropdown>
