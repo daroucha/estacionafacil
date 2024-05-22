@@ -33,6 +33,11 @@ const vehicle = ref({
   owner: selected.value
 })
 
+const alert = ref({
+  status: false,
+  message: ''
+})
+
 const loading = ref(false)
 
 const createVehicle = async () => {
@@ -47,7 +52,7 @@ const createVehicle = async () => {
     model: vehicle.value.model,
     name: vehicle.value.name,
     plate: vehicle.value.plate,
-    owner: vehicle.value.owner!._id
+    owner: vehicle.value.owner?._id
   }
 
   try {
@@ -59,8 +64,9 @@ const createVehicle = async () => {
     const event = method === 'PUT' ? 'updated' : 'created'
 
     emit(event, data)
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    alert.value.status = true
+    alert.value.message = error.statusMessage
   } finally {
     loading.value = false
   }
@@ -70,6 +76,9 @@ const createVehicle = async () => {
 <template>
   <div class="p-4 flex flex-col gap-4">
     <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Veículo</h4>
+
+    <UAlert v-if="alert.status" :title="alert.message" variant="solid" color="red"
+      icon="i-heroicons-exclamation-triangle" />
 
     <div class="flex flex-col gap-4">
       <UFormGroup label="Marca do veículo" description="VW, Honda, Chevrolet, etc" required>

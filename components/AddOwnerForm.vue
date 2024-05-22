@@ -18,6 +18,11 @@ const owner = ref({
   phone: props.value?.phone
 })
 
+const alert = ref({
+  status: false,
+  message: ''
+})
+
 const loading = ref(false)
 
 const createOwner = async () => {
@@ -43,8 +48,9 @@ const createOwner = async () => {
     const event = method === 'PUT' ? 'updated' : 'created'
 
     emit(event, data)
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    alert.value.status = true
+    alert.value.message = error.statusMessage
   } finally {
     loading.value = false
   }
@@ -54,6 +60,9 @@ const createOwner = async () => {
 <template>
   <div class="p-4 flex flex-col gap-4">
     <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Proprietário</h4>
+
+    <UAlert v-if="alert.status" :title="alert.message" variant="solid" color="red"
+      icon="i-heroicons-exclamation-triangle" />
 
     <div class="flex flex-col gap-4">
       <UFormGroup label="Nome" required>

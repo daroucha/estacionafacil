@@ -7,19 +7,23 @@ export const OwnerSchema = defineMongooseModel<Owners>({
   schema: {
     name: {
       type: 'string',
-      required: true
+      required: [true, 'Digite um nome']
     },
     email: {
       type: 'string',
-      required: true,
+      required: [true, 'Digite um e-mail'],
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Digite um e-mail válido',
+      ],
     },
     cpf: {
       type: 'string',
-      required: true,
+      required: [true, 'Digite um CPF'],
     },
     phone: {
       type: 'string',
-      required: true
+      required: [true, 'Digite um número de telefone']
     },
     vehicles: [{
       type: Types.ObjectId,
