@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
 
   if (!user) {
     throw createError({
-      message: 'Você não tem autorização para acessar essa rota',
+      statusMessage: 'Você não tem autorização para acessar essa rota',
       statusCode: 403
     })
   }
@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
 
   if (!owner) {
     throw createError({
-      message: 'Esse proprietário não existe',
+      statusMessage: 'Esse proprietário não existe',
       statusCode: 404
     })
   }

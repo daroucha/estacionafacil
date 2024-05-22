@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
   if (!user) {
     throw createError({
-      message: 'Você não tem autorização para acessar essa rota',
+      statusMessage: 'Você não tem autorização para acessar essa rota',
       statusCode: 403
     })
   }
