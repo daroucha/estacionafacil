@@ -21,6 +21,7 @@ export interface Owners {
   cpf: string
   email: string
   phone: string
+  vehicles?: Vehicles[]
   user?: ObjectId
 }
 

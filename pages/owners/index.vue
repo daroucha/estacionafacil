@@ -10,25 +10,34 @@ const modal = ref(false)
 
 const search = ref('')
 
-const columns = [{
-  key: 'name',
-  label: 'Nome',
-  sortable: true
-}, {
-  key: 'cpf',
-  label: 'CPF',
-  sortable: true
-}, {
-  key: 'email',
-  label: 'E-mail',
-  sortable: true,
-  direction: 'desc' as const
-}, {
-  key: 'phone',
-  label: 'Celular'
-}, {
-  key: 'actions'
-}]
+const columns = [
+  {
+    key: 'name',
+    label: 'Nome',
+    sortable: true
+  },
+  {
+    key: 'cpf',
+    label: 'CPF',
+    sortable: true
+  },
+  {
+    key: 'email',
+    label: 'E-mail',
+    sortable: true,
+    direction: 'desc' as const
+  },
+  {
+    key: 'phone',
+    label: 'Celular'
+  },
+  {
+    key: 'vehicles'
+  },
+  {
+    key: 'actions'
+  },
+]
 
 const resetOwner = {
   name: '',
@@ -88,6 +97,12 @@ const computedOwners = computed(() => {
     </UModal>
 
     <UTable :loading="pending" :columns="columns" :rows="computedOwners">
+      <template #vehicles-data="{ row }">
+        <ULink :to="`/owners/${row._id}`"
+          inactive-class="text-primary dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">Veículos
+        </ULink>
+      </template>
+
       <template #actions-data="{ row }">
         <UDropdown :items="items(row)">
           <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
