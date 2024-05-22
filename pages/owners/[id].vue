@@ -11,7 +11,7 @@ const { data: responseOwner, pending, error } = await useFetch<Owners>(`/api/own
   method: 'GET'
 })
 
-const owner = ref<Owners>(responseOwner)
+const owner = ref(responseOwner)
 
 useHead({
   title: `Veículos de ${owner.value?.name} - estacionafacil`
@@ -36,12 +36,11 @@ const resetVehicle = {
   brand: '',
   model: '',
   plate: '',
-  owner: owner.value
 }
 
 const edit = ref<Vehicles>(resetVehicle)
 
-const items = (row: Vehicles) => [
+const items = (row: any) => [
   [{
     label: 'Editar',
     icon: 'i-heroicons-pencil-square-20-solid',
