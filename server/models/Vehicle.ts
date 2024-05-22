@@ -7,21 +7,21 @@ export const VehicleSchema = defineMongooseModel<Vehicles>({
   schema: {
     brand: {
       type: 'string',
-      required: true
+      required: [true, 'Digite a Marca']
     },
     model: {
       type: 'string',
-      required: true
+      required: [true, 'Digite o Modelo']
     },
     name: 'string',
     plate: {
       type: 'string',
-      required: true
+      required: [true, 'Digite a Placa']
     },
     owner: {
       type: Types.ObjectId,
       ref: 'Owner',
-      required: true
+      required: [true, 'Informe o proprietário']
     },
     user: {
       type: Types.ObjectId,
