@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     if (user) {
       return await OwnerSchema.findOne({ user: user._id, _id: id }).populate({
         path: 'vehicles',
-        select: 'brand'
+        select: '_id brand model plate'
       })
     }
   } catch (error) {

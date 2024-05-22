@@ -21,10 +21,10 @@ export const OwnerSchema = defineMongooseModel<Owners>({
       type: 'string',
       required: true
     },
-    vehicles: {
+    vehicles: [{
       type: Types.ObjectId,
       ref: 'Vehicle'
-    },
+    }],
     user: {
       type: Types.ObjectId,
       ref: 'User',

@@ -69,7 +69,7 @@ const onDelete = async (data: Vehicles) => {
     })
 
     const index = vehicles.value!.findIndex(vehicle => vehicle._id === data._id)
-    delete vehicles.value![index]
+    vehicles.value = vehicles.value!.filter(vehicle => vehicle !== vehicles.value![index])
   } catch (error) {
     console.log(error)
   }
