@@ -12,11 +12,8 @@ Você vai precisar criar um usuário para conseguir usar a plataforma. Você pod
 
 ```json
 {
-  // seu nome de usuario
-  "username": "",
-
-  // sua senha
-  "password": ""
+  "username": "" // seu nome de usuario,
+  "password": "" // sua senha
 }
 ```
 
